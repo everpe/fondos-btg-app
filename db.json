@@ -1,0 +1,46 @@
+{
+  "user": {
+    "id": 1,
+    "balance": 500000, 
+    "preferredNotification": "email"
+  },
+  "funds": [
+    {
+      "id": 1,
+      "name": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "minimumAmount": 75000,
+      "category": "FPV",
+      "description": "Fondo de pensiones voluntarias con estrategia conservadora"
+    },
+    {
+      "id": 2,
+      "name": "FPV_BTG_PACTUAL_ECOPETROL",
+      "minimumAmount": 125000,
+      "category": "FPV",
+      "description": "Fondo especializado en acciones de Ecopetrol"
+    },
+    {
+      "id": 3,
+      "name": "DEUDAPRIVADA",
+      "minimumAmount": 50000,
+      "category": "FIC",
+      "description": "Fondo de inversión colectiva en deuda privada"
+    },
+    {
+      "id": 4,
+      "name": "FDO-ACCIONES",
+      "minimumAmount": 250000,
+      "category": "FIC",
+      "description": "Fondo de inversión en renta variable"
+    },
+    {
+      "id": 5,
+      "name": "FPV_BTG_PACTUAL_DINAMICA",
+      "minimumAmount": 100000,
+      "category": "FPV",
+      "description": "Fondo dinámico con estrategia diversificada"
+    }
+  ],
+  "transactions": [],
+  "subscriptions": []
+}
