@@ -16,7 +16,7 @@ export interface User {
 
 // Transaction models
 export interface Transaction {
-    id: number;
+  id: number;
   userId: number;
   fundId: number;
   type: 'subscription' | 'cancellation';

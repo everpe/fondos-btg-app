@@ -14,7 +14,7 @@ export class UserApiService {
 
 
   private readonly http = inject(HttpClient);
-  private readonly API_URL = 'http://localhost:3001'; // TODO: Move to environment
+  private readonly API_URL = 'http://localhost:3000'; // TODO: Move to environment
 
   /**
    * Obtener información del usuario

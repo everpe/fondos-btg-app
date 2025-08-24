@@ -1,0 +1,21 @@
+<div class="funds-page">
+  <h1>Fondos Disponibles</h1>
+
+  <app-funds-card 
+    *ngFor="let fund of funds" 
+    [fund]="fund" 
+    (subscribe)="form.patchValue({ fundId: fund.id.toString()  })">
+  </app-funds-card>
+
+  <!-- Formulario -->
+  <form [formGroup]="form" (ngSubmit)="subscribe()" class="subscription-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Monto a invertir</mat-label>
+      <input matInput type="number" formControlName="amount">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      Confirmar Suscripción
+    </button>
+  </form>
+</div>

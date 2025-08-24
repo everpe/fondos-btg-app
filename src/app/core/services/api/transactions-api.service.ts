@@ -12,7 +12,7 @@ import { Transaction } from '../../models';
 export class TransactionsApiService {
   
   private readonly http = inject(HttpClient);
-  private readonly API_URL = 'http://localhost:3001';
+  private readonly API_URL = 'http://localhost:3000';
 
   /**
    * Obtener todas las transacciones (historial completo)
