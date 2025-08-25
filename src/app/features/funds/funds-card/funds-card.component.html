@@ -25,7 +25,10 @@
         El monto debe ser mayor a 0
       </mat-error>
     </mat-form-field>
-
+      <mat-radio-group formControlName="notificationMethod">
+        <mat-radio-button value="email">Email</mat-radio-button>
+        <mat-radio-button value="sms">SMS</mat-radio-button>
+      </mat-radio-group>
     <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
       Confirmar
     </button>

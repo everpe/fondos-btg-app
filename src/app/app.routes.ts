@@ -13,4 +13,18 @@ export const routes: Routes = [
         (m) => m.FundsPageComponent
       ),
   },
+    {
+    path: 'subscriptions',
+    loadComponent: () =>
+      import('./features/subscriptions/subscriptions-list/subscriptions-list.component').then(
+        (m) => m.SubscriptionsListComponent
+      ),
+  },
+  {
+    path: 'transactions',
+    loadComponent: () =>
+      import('./features/transactions/historial/historial.component').then(
+        (m) => m.HistorialComponent
+      ),
+  }
 ];

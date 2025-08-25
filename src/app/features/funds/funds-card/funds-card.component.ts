@@ -4,11 +4,13 @@ import { MatCard, MatCardActions, MatCardContent, MatCardTitle } from '@angular/
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {MatRadioModule} from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-funds-card',
-    standalone: true,
+  standalone: true,
   imports: [
     MatCard,
     MatCardActions,
@@ -16,9 +18,11 @@ import { MatInputModule } from '@angular/material/input';
     MatCardContent,
     CurrencyPipe,
     MatFormFieldModule,
+    MatInputModule,
     ReactiveFormsModule,
     CommonModule,
-    MatInputModule
+    MatRadioModule,
+    MatButtonModule
   ],
   templateUrl: './funds-card.component.html',
   styleUrl: './funds-card.component.scss'
@@ -32,7 +36,8 @@ export class FundsCardComponent {
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      amount: ['', [Validators.required, Validators.min(1)]]
+      amount: ['', [Validators.required, Validators.min(1)]],
+      notificationMethod: ['email', Validators.required]
     });
   }
 

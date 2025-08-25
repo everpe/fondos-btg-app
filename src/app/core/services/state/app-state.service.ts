@@ -1,13 +1,22 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { AppError, Fund, LoadingState, NotificationType, Subscription, Transaction, User } from '../../models';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, switchMap, tap } from 'rxjs';
+import { FundsApiService } from '../api/funds-api.service';
+import { SubscriptionApiService } from '../api/subscription-api.service';
+import { TransactionsApiService } from '../api/transactions-api.service';
+import { UserApiService } from '../api/user-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppStateService {
-  
+  private readonly userApi = inject(UserApiService);
+  private readonly fundsApi = inject(FundsApiService);
+  private readonly subscriptionsApi = inject(SubscriptionApiService);
+  private readonly transactionsApi = inject(TransactionsApiService);
+
+
   // Estado de usuario
   private userSubject = new BehaviorSubject<User | null>(null);
   user$: Observable<User | null> = this.userSubject.asObservable();
@@ -33,6 +42,39 @@ export class AppStateService {
   error$: Observable<AppError | null> = this.errorSubject.asObservable();
 
 
+
+initializeApp() {
+    this.setLoadingState('loading');
+    this.setError(null);
+
+    this.userApi.getUser().pipe(
+      tap(user => this.setUser(user)),
+      switchMap(user =>
+        forkJoin({
+          funds: this.fundsApi.getAllFunds(),
+          subs: this.subscriptionsApi.getSubscriptionsByUser(user.id),
+          txns: this.transactionsApi.getTransactionsByUser(user.id)
+        })
+      )
+    ).subscribe({
+      next: ({ funds, subs, txns }) => {
+        this.setFunds(funds);
+        this.setSubscriptions(subs);
+        this.setTransactions(txns);
+        this.setLoadingState('success');
+      },
+      error: (err) => {
+        this.setError({
+          code: 'INIT_ERROR',
+          message: 'Error al inicializar la aplicación',
+          details: err
+        });
+        this.setLoadingState('error');
+      }
+    });
+  }
+
+  
 
 
   // ========================

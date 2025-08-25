@@ -1,49 +1,97 @@
 {
-   "users": [
+  "users": [
     {
       "id": "1",
-      "balance": 425000,
+      "balance": 375000,
       "preferredNotification": "email",
       "phone": "3001234567"
     }
   ],
   "funds": [
     {
-      "id": 1,
+      "id": "1",
       "name": "FPV_BTG_PACTUAL_RECAUDADORA",
       "minimumAmount": 75000,
       "category": "FPV",
       "description": "Fondo de pensiones voluntarias con estrategia conservadora"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "FPV_BTG_PACTUAL_ECOPETROL",
       "minimumAmount": 125000,
       "category": "FPV",
       "description": "Fondo especializado en acciones de Ecopetrol"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "DEUDAPRIVADA",
       "minimumAmount": 50000,
       "category": "FIC",
       "description": "Fondo de inversión colectiva en deuda privada"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "FDO-ACCIONES",
       "minimumAmount": 250000,
       "category": "FIC",
       "description": "Fondo de inversión en renta variable"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "FPV_BTG_PACTUAL_DINAMICA",
       "minimumAmount": 100000,
       "category": "FPV",
       "description": "Fondo dinámico con estrategia diversificada"
     }
   ],
-  "transactions": [],
-  "subscriptions": []
+  "transactions": [
+    {
+      "id": "67ce",
+      "userId": "1",
+      "fundId": "2",
+      "type": "subscription",
+      "amount": 125000,
+      "date": "2025-08-25T03:21:45.311Z"
+    },
+    {
+      "id": "51f3",
+      "userId": "1",
+      "fundId": "2",
+      "type": "cancellation",
+      "amount": 125000,
+      "date": "2025-08-25T03:31:50.359Z"
+    },
+    {
+      "id": "6272",
+      "userId": "1",
+      "fundId": "1",
+      "type": "subscription",
+      "amount": 75000,
+      "date": "2025-08-25T03:32:15.868Z"
+    },
+    {
+      "id": "d475",
+      "userId": "1",
+      "fundId": "3",
+      "type": "subscription",
+      "amount": 50000,
+      "date": "2025-08-25T03:43:44.370Z"
+    }
+  ],
+  "subscriptions": [
+    {
+      "id": "fe33",
+      "userId": "1",
+      "fundId": "1",
+      "amount": 75000,
+      "date": "2025-08-25T03:32:15.868Z"
+    },
+    {
+      "id": "d095",
+      "userId": "1",
+      "fundId": "3",
+      "amount": 50000,
+      "date": "2025-08-25T03:43:44.370Z"
+    }
+  ]
 }

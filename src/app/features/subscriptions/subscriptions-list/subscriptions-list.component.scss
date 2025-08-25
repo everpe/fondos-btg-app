@@ -1,0 +1,39 @@
+.title {
+  text-align: center;
+  margin: 1.5rem 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.subscriptions-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.subscription-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  mat-card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  mat-card-subtitle {
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  mat-card-content {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

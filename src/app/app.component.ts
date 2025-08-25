@@ -20,17 +20,9 @@ export class AppComponent {
   title = 'btg-funds-app';
 
 
-  private fundsApi = inject(FundsApiService);
-  private userApi = inject(UserApiService);
   private appState = inject(AppStateService);
 
   ngOnInit() {
-    this.fundsApi.getAllFunds().subscribe(funds => {
-      this.appState.setFunds(funds);
-    });
-
-    this.userApi.getUser().subscribe(user => {
-      this.appState.setUser(user);
-    });
+    this.appState.initializeApp();
   }
 }

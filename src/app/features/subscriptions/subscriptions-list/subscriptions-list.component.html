@@ -1,0 +1,25 @@
+<h2 class="title">Mis Suscripciones</h2>
+
+<div class="subscriptions-list">
+  <mat-card *ngFor="let sub of subscriptions" class="subscription-card">
+    <mat-card-header>
+      <mat-card-title>
+        Fondo #{{ sub.fundId }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        Suscrito el {{ sub.date | date:'mediumDate' }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>Monto: <strong>{{ sub.amount | currency:'COP' }}</strong></p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-stroked-button color="warn" (click)="cancel(sub)">
+        Cancelar suscripción
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { throwError, switchMap } from 'rxjs';
+import { throwError, switchMap, take } from 'rxjs';
 import { User, Fund, Transaction, Subscription } from '../../models';
 import { TransactionsApiService } from '../api/transactions-api.service';
 import { UserApiService } from '../api/user-api.service';
@@ -26,34 +26,38 @@ export class SubscriptionService {
   /**
    * Suscribir a un fondo
    */
-  subscribeToFund(user: User, fund: Fund, amount: number, currentSubscriptions: Subscription[]) {
-    
-    const validation = this.fundValidators.canSubscribe(user, fund, amount, currentSubscriptions);
-    if (!validation.valid) {
-      return throwError(() => new Error(validation.error));
-    }
+  subscribeToFund(user: User, fund: Fund, amount: number) {
+    return this.subscriptionsApi.getSubscriptionsByUser(user.id).pipe(
+      take(1),
+      switchMap((subs: Subscription[]) => {
+        const validation = this.fundValidators.canSubscribe(user, fund, amount, subs);
+        if (!validation.valid) {
+          return throwError(() => new Error(validation.error));
+        }
 
-    const subscription: Omit<Subscription, 'id'> = {
-      userId: user.id,
-      fundId: fund.id,
-      amount,
-      date: new Date().toISOString()
-    };
+        const subscription: Omit<Subscription, 'id'> = {
+          userId: user.id,
+          fundId: fund.id,
+          amount,
+          date: new Date().toISOString()
+        };
 
-    const transaction: Omit<Transaction, 'id'> = {
-      userId: user.id,
-      fundId: fund.id,
-      type: 'subscription',
-      amount,
-      date: new Date().toISOString()
-    };
+        const transaction: Omit<Transaction, 'id'> = {
+          userId: user.id,
+          fundId: fund.id,
+          type: 'subscription',
+          amount,
+          date: new Date().toISOString()
+        };
 
-    // Orquestar la lógica: actualizar saldo → crear suscripción → crear transacción
-    return this.userApi.updateBalance(user.id, user.balance - amount).pipe(
-      switchMap(() => this.subscriptionsApi.createSubscription(subscription)),
-      switchMap(() => this.transactionsApi.createTransaction(transaction))
+        return this.userApi.updateBalance(user.id, user.balance - amount).pipe(
+          switchMap(() => this.subscriptionsApi.createSubscription(subscription)),
+          switchMap(() => this.transactionsApi.createTransaction(transaction))
+        );
+      })
     );
   }
+
 
   /**
    * Cancelar suscripción a un fondo

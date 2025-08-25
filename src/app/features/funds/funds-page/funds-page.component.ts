@@ -23,7 +23,8 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    FundsCardComponent
+    FundsCardComponent,
+    MatButtonModule
   ],
   templateUrl: './funds-page.component.html',
   styleUrl: './funds-page.component.scss'
@@ -50,7 +51,7 @@ export class FundsPageComponent {
   onSubscribe({ fund, amount }: { fund: Fund; amount: number }) {
     if (!this.user) return;
 
-    this.subscriptionService.subscribeToFund(this.user, fund, amount, []).subscribe({
+    this.subscriptionService.subscribeToFund(this.user, fund, amount).subscribe({
       next: () => alert(`Suscripción exitosa al fondo ${fund.name}`),
       error: (err) => alert(`Error: ${err.message}`)
     });
