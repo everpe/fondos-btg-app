@@ -1,8 +1,8 @@
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User, NotificationType } from '../../models';
-
+import { environment } from '../../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,28 +14,27 @@ export class UserApiService {
 
 
   private readonly http = inject(HttpClient);
-  private readonly API_URL = 'http://localhost:3000'; // TODO: Move to environment
+  private readonly API_URL = environment.apiBaseUrl;
 
-  /**
-   * Obtener información del usuario
+ /**
+   * Obtener información del usuario (asumiendo usuario único id=1)
    */
   getUser(): Observable<User> {
-    return this.http.get<User>(`${this.API_URL}/user`);
+    return this.http.get<User>(`${this.API_URL}/users/1`);
   }
 
   /**
    * Actualizar información completa del usuario
    */
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`${this.API_URL}/user`, user);
+    return this.http.put<User>(`${this.API_URL}/users/${user.id}`, user);
   }
 
   /**
    * Actualizar solo el balance del usuario
-   * Más eficiente que actualizar todo el objeto
    */
   updateBalance(userId: number, newBalance: number): Observable<User> {
-    return this.http.patch<User>(`${this.API_URL}/user`, {
+    return this.http.patch<User>(`${this.API_URL}/users/${userId}`, {
       balance: newBalance
     });
   }
@@ -43,8 +42,8 @@ export class UserApiService {
   /**
    * Actualizar método de notificación preferido
    */
-  updateNotificationPreference(method: NotificationType): Observable<User> {
-    return this.http.patch<User>(`${this.API_URL}/user`, {
+  updateNotificationPreference(userId: number, method: NotificationType): Observable<User> {
+    return this.http.patch<User>(`${this.API_URL}/users/${userId}`, {
       preferredNotification: method
     });
   }

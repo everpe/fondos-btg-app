@@ -1,10 +1,12 @@
 {
-  "user": {
-    "id": 1,
-    "balance": 500000, 
-    "preferredNotification": "email",
-    "phone": "3001234567"
-  },
+   "users": [
+    {
+      "id": "1",
+      "balance": 425000,
+      "preferredNotification": "email",
+      "phone": "3001234567"
+    }
+  ],
   "funds": [
     {
       "id": 1,

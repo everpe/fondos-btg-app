@@ -29,7 +29,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './funds-page.component.scss'
 })
 export class FundsPageComponent {
- private readonly appState = inject(AppStateService);
+  private readonly appState = inject(AppStateService);
   private readonly subscriptionService = inject(SubscriptionService);
   private readonly fb = inject(FormBuilder);
 
@@ -46,17 +46,13 @@ export class FundsPageComponent {
     this.appState.user$.subscribe(user => {this.user = user, console.log(user)});
   }
 
-  subscribe() {
+
+  onSubscribe({ fund, amount }: { fund: Fund; amount: number }) {
     if (!this.user) return;
-    const { fundId, amount } = this.form.value;
-    const fund = this.funds.find(f => f.id === Number(fundId));
-    
-    if (fund && amount) {
-      this.subscriptionService.subscribeToFund(this.user, fund, +amount, [])
-        .subscribe({
-          next: () => alert(`Suscripción exitosa al fondo ${fund.name}`),
-          error: (err) => alert(`Error: ${err.message}`)
-        });
-    }
+
+    this.subscriptionService.subscribeToFund(this.user, fund, amount, []).subscribe({
+      next: () => alert(`Suscripción exitosa al fondo ${fund.name}`),
+      error: (err) => alert(`Error: ${err.message}`)
+    });
   }
 }

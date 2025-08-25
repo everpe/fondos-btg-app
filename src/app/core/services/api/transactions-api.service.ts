@@ -1,8 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Transaction } from '../../models';
-
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +12,7 @@ import { Transaction } from '../../models';
 export class TransactionsApiService {
   
   private readonly http = inject(HttpClient);
-  private readonly API_URL = 'http://localhost:3000';
+  private readonly API_URL = environment.apiBaseUrl;
 
   /**
    * Obtener todas las transacciones (historial completo)
