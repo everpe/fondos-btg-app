@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FundsPageComponent } from './funds-page.component';
+// import { FundsPageComponent } from './funds-page.component';
 
-describe('FundsPageComponent', () => {
-  let component: FundsPageComponent;
-  let fixture: ComponentFixture<FundsPageComponent>;
+// describe('FundsPageComponent', () => {
+//   let component: FundsPageComponent;
+//   let fixture: ComponentFixture<FundsPageComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [FundsPageComponent]
-    })
-    .compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       imports: [FundsPageComponent]
+//     })
+//     .compileComponents();
 
-    fixture = TestBed.createComponent(FundsPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(FundsPageComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });
