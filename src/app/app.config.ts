@@ -2,28 +2,25 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideToastr } from 'ngx-toastr';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr, ToastrModule } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
-
     provideHttpClient(withFetch()),
-    // provideAnimations(),
-    provideToastr({
-      timeOut: 3000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: true,
-      progressBar: true,
-      closeButton: true,
-      enableHtml: true,
-      tapToDismiss: true,
-      extendedTimeOut: 1000
-    })
+    provideAnimations(), // required animations providers
+    provideToastr(
+      {
+      timeOut: 3000, // duración en ms
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true, // opcional: evita toasts repetidos
+      closeButton: true        // opcional: botón de cerrar
+    }
+    ), // Toastr providers
   ],
-
 };
 
 

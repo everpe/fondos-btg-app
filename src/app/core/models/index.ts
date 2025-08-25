@@ -27,11 +27,12 @@ export interface Transaction {
 // Subscription models
 export interface Subscription {
 
-    id: number;
+  id: number;
   userId: number;
   fundId: number;
   amount: number;
   date: string; // ISO string
+  notificationMethod: 'email' | 'sms';
 }
 
 // API Response models

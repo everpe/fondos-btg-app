@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { NotificationType } from '../../models';
 import { ToastrService } from 'ngx-toastr'; // si decides usar ngx-toastr
 @Injectable({
@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr'; // si decides usar ngx-toastr
 })
 export class NotificationService {
 
- constructor(private toastr: ToastrService) {}
+  private toastr = inject(ToastrService);
 
   /**
    * Notificar al usuario según su preferencia
@@ -25,27 +25,27 @@ export class NotificationService {
    * Notificación de éxito
    */
   success(message: string) {
-    this.toastr.success(message, '✅ Éxito');
+    this.toastr.success(message);
   }
 
   /**
    * Notificación de error
    */
   error(message: string) {
-    this.toastr.error(message, '❌ Error');
+    this.toastr.error(message);
   }
 
   /**
    * Notificación de advertencia
    */
   warning(message: string) {
-    this.toastr.warning(message, '⚠️ Advertencia');
+    this.toastr.warning(message);
   }
 
   /**
    * Notificación de información
    */
   info(message: string) {
-    this.toastr.info(message, 'ℹ️ Información');
+    this.toastr.info(message);
   }
 }

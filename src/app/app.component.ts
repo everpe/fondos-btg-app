@@ -2,8 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { inject } from '@angular/core';
-import { FundsApiService } from './core/services/api/funds-api.service';
-import { UserApiService } from './core/services/api/user-api.service';
 import { AppStateService } from './core/services/state/app-state.service';
 import { NavegationMenuComponent } from './layout/navegation-menu/navegation-menu.component';
 
@@ -20,7 +18,6 @@ import { NavegationMenuComponent } from './layout/navegation-menu/navegation-men
 })
 export class AppComponent {
   title = 'btg-funds-app';
-
 
   private appState = inject(AppStateService);
 

@@ -27,7 +27,7 @@ export class SubscriptionService {
   /**
    * Suscribir a un fondo
    */
-  subscribeToFund(user: User, fund: Fund, amount: number) {
+  subscribeToFund(user: User, fund: Fund, amount: number,   notificationMethod: 'email' | 'sms') {
     return this.subscriptionsApi.getSubscriptionsByUser(user.id).pipe(
       take(1),
       switchMap((subs: Subscription[]) => {
@@ -40,7 +40,8 @@ export class SubscriptionService {
           userId: user.id,
           fundId: fund.id,
           amount,
-          date: new Date().toISOString()
+          date: new Date().toISOString(),
+          notificationMethod
         };
 
         const transaction: Omit<Transaction, 'id'> = {

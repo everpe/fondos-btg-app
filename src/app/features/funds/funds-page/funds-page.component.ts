@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
+import { NotificationService } from '../../../core/services/business/notification.service';
 import { Fund, User } from '../../../core/models';
 import { SubscriptionService } from '../../../core/services/business/subscription.service';
 import { AppStateService } from '../../../core/services/state/app-state.service';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 
-// Imports de Angular Material
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,6 +34,8 @@ export class FundsPageComponent {
   private readonly subscriptionService = inject(SubscriptionService);
   private readonly fb = inject(FormBuilder);
 
+  private readonly notificationService = inject(NotificationService);
+
   funds: Fund[] = [];
   user: User | null = null;
 
@@ -43,17 +45,17 @@ export class FundsPageComponent {
   });
 
   ngOnInit(): void {
-    this.appState.funds$.subscribe(funds => {this.funds = funds, console.log(funds)});
-    this.appState.user$.subscribe(user => {this.user = user, console.log(user)});
-}
+    this.appState.funds$.subscribe(funds => {this.funds = funds});
+    this.appState.user$.subscribe(user => {this.user = user});
+  }
 
 
-  onSubscribe({ fund, amount }: { fund: Fund; amount: number }) {
+  onSubscribe({ fund, amount, notificationMethod }: { fund: Fund; amount: number; notificationMethod: 'email' | 'sms' }) {
     if (!this.user) return;
 
-    this.subscriptionService.subscribeToFund(this.user, fund, amount).subscribe({
-      next: () => alert(`Suscripción exitosa al fondo ${fund.name}`),
-      error: (err) => alert(`Error: ${err.message}`)
+    this.subscriptionService.subscribeToFund(this.user, fund, amount, notificationMethod ).subscribe({
+      next: () => this.notificationService.success(`Suscripción exitosa al fondo ${fund.name}`),
+      error: (err) => this.notificationService.error(`${err.message}`)
     });
   }
 }

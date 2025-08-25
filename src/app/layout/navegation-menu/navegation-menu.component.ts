@@ -34,7 +34,7 @@ template: `
 
       <!-- Sección derecha: saldo -->
       <div class="user-balance" *ngIf="user$ | async as user">
-        <mat-icon>account_circle</mat-icon>
+        <mat-icon>attach_money</mat-icon>
         <span class="balance">
           {{ user.balance | currency:'COP':'symbol-narrow':'1.0-0' }}
         </span>

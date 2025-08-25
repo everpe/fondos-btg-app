@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Fund } from '../../../core/models';
 import { MatCard, MatCardActions, MatCardContent, MatCardTitle } from '@angular/material/card';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
@@ -17,7 +16,6 @@ import { MatButtonModule } from '@angular/material/button';
     MatCardTitle,
     MatCardContent,
     CurrencyPipe,
-    MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
     CommonModule,
@@ -28,8 +26,8 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './funds-card.component.scss'
 })
 export class FundsCardComponent {
- @Input() fund!: Fund;
-  @Output() subscribe = new EventEmitter<{ fund: Fund; amount: number }>();
+  @Input() fund!: Fund;
+  @Output() subscribe = new EventEmitter<{ fund: Fund; amount: number, notificationMethod: 'email' | 'sms' }>();
 
   form: FormGroup;
   showForm = false;
@@ -47,7 +45,12 @@ export class FundsCardComponent {
 
   onSubmit() {
     if (this.form.valid) {
-      this.subscribe.emit({ fund: this.fund, amount: this.form.value.amount });
+      this.subscribe.emit(
+        { 
+          fund: this.fund, 
+          amount: this.form.value.amount,
+          notificationMethod: this.form.value.notificationMethod 
+        });
       this.form.reset();
       this.showForm = false;
     }
