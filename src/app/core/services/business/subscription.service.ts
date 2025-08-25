@@ -1,21 +1,22 @@
 import { inject, Injectable } from '@angular/core';
-import { throwError, switchMap, take } from 'rxjs';
+import { throwError, switchMap, take, tap } from 'rxjs';
 import { User, Fund, Transaction, Subscription } from '../../models';
 import { TransactionsApiService } from '../api/transactions-api.service';
 import { UserApiService } from '../api/user-api.service';
 import { SubscriptionApiService } from '../api/subscription-api.service';
 import { FundValidatorsService } from '../validators/fund-validators.service';
+import { AppStateService } from '../state/app-state.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubscriptionService {
 
- private readonly subscriptionsApi = inject(SubscriptionApiService);
+  private readonly subscriptionsApi = inject(SubscriptionApiService);
   private readonly transactionsApi = inject(TransactionsApiService);
   private readonly userApi = inject(UserApiService);
   private readonly fundValidators = inject(FundValidatorsService);
-
+  private readonly appState = inject(AppStateService);
   /**
    * Obtener suscripciones activas del usuario
    */
@@ -51,12 +52,27 @@ export class SubscriptionService {
         };
 
         return this.userApi.updateBalance(user.id, user.balance - amount).pipe(
+          tap((updatedUser) => {
+            // Actualizamos AppState con el nuevo user
+            this.appState.setUser(updatedUser);
+          }),
+
           switchMap(() => this.subscriptionsApi.createSubscription(subscription)),
-          switchMap(() => this.transactionsApi.createTransaction(transaction))
+          tap((createdSub) => {
+            // Añadir la suscripción al estado global
+            this.appState.addSubscription(createdSub);
+          }),
+
+          switchMap(() => this.transactionsApi.createTransaction(transaction)),
+          tap((txn) => {
+            //  Añadir la transacción al estado global
+            this.appState.addTransaction(txn);
+          })
         );
       })
     );
   }
+
 
 
   /**
@@ -78,8 +94,20 @@ export class SubscriptionService {
 
     return this.subscriptionsApi.deleteSubscription(subscription.id).pipe(
       switchMap(() => this.userApi.updateBalance(user.id, user.balance + subscription.amount)),
-      switchMap(() => this.transactionsApi.createTransaction(transaction))
+      tap((updatedUser) => {
+        // Actualizamos el balance del usuario en el estado
+        this.appState.setUser(updatedUser);
+      }),
+
+      switchMap(() => this.transactionsApi.createTransaction(transaction)),
+      tap((newTransaction) => {
+        // Quitamos la suscripción del estado global
+        this.appState.removeSubscription(subscription.id);
+        // Agregamos la transacción en el estado global
+        this.appState.addTransaction(newTransaction);
+      })
     );
   }
+
 
 }

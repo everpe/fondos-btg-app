@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Subscription, User } from '../../../core/models';
 import { SubscriptionService } from '../../../core/services/business/subscription.service';
 import { AppStateService } from '../../../core/services/state/app-state.service';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -27,7 +27,7 @@ export class SubscriptionsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.appState.subscriptions$.subscribe(subs => this.subscriptions = subs);
-    this.appState.user$.subscribe(user => this.user = user);
+    this.appState.user$.subscribe(user => {this.user = user; console.log(user)});
   }
 
   cancel(sub: Subscription) {
@@ -36,8 +36,8 @@ export class SubscriptionsListComponent implements OnInit {
     this.subscriptionService.cancelSubscription(this.user, sub, this.subscriptions).subscribe({
       next: () => {
         alert(`Cancelaste la suscripción al fondo ${sub.fundId}. Se devolvieron $${sub.amount} a tu saldo`);
+        this.appState.updateUserBalance(this.user!.balance);
         this.appState.removeSubscription(sub.id);
-        this.appState.updateUserBalance(this.user!.balance + sub.amount);
       },
       error: (err) => alert(`Error: ${err.message}`)
     });

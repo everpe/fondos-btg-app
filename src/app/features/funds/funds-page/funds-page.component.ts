@@ -45,7 +45,7 @@ export class FundsPageComponent {
   ngOnInit(): void {
     this.appState.funds$.subscribe(funds => {this.funds = funds, console.log(funds)});
     this.appState.user$.subscribe(user => {this.user = user, console.log(user)});
-  }
+}
 
 
   onSubscribe({ fund, amount }: { fund: Fund; amount: number }) {

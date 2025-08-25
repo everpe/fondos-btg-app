@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "1",
-      "balance": 375000,
+      "balance": 500000,
       "preferredNotification": "email",
       "phone": "3001234567"
     }
@@ -45,53 +45,6 @@
     }
   ],
   "transactions": [
-    {
-      "id": "67ce",
-      "userId": "1",
-      "fundId": "2",
-      "type": "subscription",
-      "amount": 125000,
-      "date": "2025-08-25T03:21:45.311Z"
-    },
-    {
-      "id": "51f3",
-      "userId": "1",
-      "fundId": "2",
-      "type": "cancellation",
-      "amount": 125000,
-      "date": "2025-08-25T03:31:50.359Z"
-    },
-    {
-      "id": "6272",
-      "userId": "1",
-      "fundId": "1",
-      "type": "subscription",
-      "amount": 75000,
-      "date": "2025-08-25T03:32:15.868Z"
-    },
-    {
-      "id": "d475",
-      "userId": "1",
-      "fundId": "3",
-      "type": "subscription",
-      "amount": 50000,
-      "date": "2025-08-25T03:43:44.370Z"
-    }
   ],
-  "subscriptions": [
-    {
-      "id": "fe33",
-      "userId": "1",
-      "fundId": "1",
-      "amount": 75000,
-      "date": "2025-08-25T03:32:15.868Z"
-    },
-    {
-      "id": "d095",
-      "userId": "1",
-      "fundId": "3",
-      "amount": 50000,
-      "date": "2025-08-25T03:43:44.370Z"
-    }
-  ]
+  "subscriptions": []
 }

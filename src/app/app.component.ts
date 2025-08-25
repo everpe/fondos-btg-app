@@ -5,13 +5,15 @@ import { inject } from '@angular/core';
 import { FundsApiService } from './core/services/api/funds-api.service';
 import { UserApiService } from './core/services/api/user-api.service';
 import { AppStateService } from './core/services/state/app-state.service';
+import { NavegationMenuComponent } from './layout/navegation-menu/navegation-menu.component';
 
 
 @Component({
   selector: 'app-root',
   imports: [
     CommonModule,
-    RouterOutlet
+    RouterOutlet,
+    NavegationMenuComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
